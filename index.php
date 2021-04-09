@@ -44,12 +44,12 @@ if(!empty($_FILES)) {
         $comment = "";
 
         //upload IMG
-        $stmt = $db->query("SELECT * FROM comment WHERE user_id = '".intval($_COOKIE['id'])."'") or die ( mysqli_error($link) );
+        $stmt = $db->query("SELECT * FROM comment WHERE user_id = '".intval($_COOKIE['id'])."'");
         $result = $stmt->FETCH(PDO::FETCH_LAZY);
         //$u_id1 = $result->user_id;
         $f_n = $result->img_name;
         if($f_n === 0){
-              $stmt = $db->prepare("INSERT INTO comment (user_id, img_name, comment) VALUES (:u_id, :i_n, :comm)") or die ( mysqli_error($link) );
+              $stmt = $db->prepare("INSERT INTO comment (user_id, img_name, comment) VALUES (:u_id, :i_n, :comm)");
                 $stmt->bindParam(':u_id', $u_id);
                 $stmt->bindParam(':i_n', $fileName);
                 $stmt->bindParam(':comm', $comment);

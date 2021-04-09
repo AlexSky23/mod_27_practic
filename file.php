@@ -35,16 +35,16 @@ if (!empty($_POST['comment'])) {
 
         // Дозапись текста в файл
     
-        $stmt = $db->query("SELECT * FROM comment WHERE user_id = '".intval($_COOKIE['id'])."'") or die ( mysqli_error($link) );
+        $stmt = $db->query("SELECT * FROM comment WHERE user_id = '".intval($_COOKIE['id'])."'");
         $result = $stmt->FETCH(PDO::FETCH_LAZY);
         $u_id1 = $result->user_id;
         $f_n = $result->img_name;
       //  print_r( "sdfsdfd". $u_id1) ;
         if(($u_id1 > 0) && ($f_n > 0)){
-        $stmt = $db->prepare("UPDATE `comment` SET `comment`='$comment' WHERE user_id = '".intval($_COOKIE['id'])."' AND img_name = '$imageFileName'") or die ( mysqli_error($link) );
+        $stmt = $db->prepare("UPDATE `comment` SET `comment`='$comment' WHERE user_id = '".intval($_COOKIE['id'])."' AND img_name = '$imageFileName'");
     }
         else{
-            $stmt = $db->prepare("INSERT INTO comment (user_id, img_name, comment) VALUES (:u_id, :i_n, :comm)") or die ( mysqli_error($link) );
+            $stmt = $db->prepare("INSERT INTO comment (user_id, img_name, comment) VALUES (:u_id, :i_n, :comm)");
             $stmt->bindParam(':u_id', $u_id);
             $stmt->bindParam(':i_n', $imageFileName);
             $stmt->bindParam(':comm', $comment);
@@ -58,7 +58,7 @@ if (!empty($_POST['comment'])) {
 if (!empty($_POST['name'])) {
     $a = $_POST['name'];
     //echo $a;
-    $stmt = $db->prepare("UPDATE `comment` SET `comment`= '' WHERE user_id = '".intval($_COOKIE['id'])."' AND img_name = '$imageFileName' AND comment = '$a'") or die ( mysqli_error($link) );
+    $stmt = $db->prepare("UPDATE `comment` SET `comment`= '' WHERE user_id = '".intval($_COOKIE['id'])."' AND img_name = '$imageFileName' AND comment = '$a'");
     $stmt->execute();
     $stmt = $db->exec("DELETE FROM comment WHERE `comment` = ''");
 
